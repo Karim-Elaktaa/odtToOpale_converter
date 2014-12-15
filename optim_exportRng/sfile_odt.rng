@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sng:grammar xmlns:of="scpf.org:office" xmlns:sp="http://www.utc.fr/ics/scenari/v3/primitive" xmlns:sc="http://www.utc.fr/ics/scenari/v3/core" xmlns:sfm="http://www.utc.fr/ics/scenari/v3/filemeta" xmlns:sng="http://relaxng.org/ns/structure/1.0" xmlns:snga="http://relaxng.org/ns/compatibility/annotations/1.0"  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+<sng:start xmlns:sng="http://relaxng.org/ns/structure/1.0">
+<sng:element name="sfm:odt" snga:title="Texte OpenDocument">
+<snga:documentation>Ressource au format OpenDocument Text.</snga:documentation>
+<sng:optional>
+<sng:ref name="of_binM"/>
+</sng:optional>
+</sng:element>
+</sng:start>
+<sng:define xmlns:sng="http://relaxng.org/ns/structure/1.0" name="of_binM">
+<sng:element name="of:binM" snga:title="Meta des documents">
+<sng:optional>
+<sng:element name="sp:title" snga:title="Légende">
+<snga:documentation>Permet de saisir la légende qui sera affichée dans les supports de publication.</snga:documentation>
+<sng:data type="string">
+<sng:param name="minLength">1</sng:param>
+</sng:data>
+</sng:element>
+</sng:optional>
+</sng:element>
+</sng:define>
+</sng:grammar>

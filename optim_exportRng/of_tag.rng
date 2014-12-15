@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sng:grammar xmlns:of="scpf.org:office" xmlns:sp="http://www.utc.fr/ics/scenari/v3/primitive" xmlns:sc="http://www.utc.fr/ics/scenari/v3/core" xmlns:sng="http://relaxng.org/ns/structure/1.0" xmlns:snga="http://relaxng.org/ns/compatibility/annotations/1.0"  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+<sng:start>
+<sng:element name="sc:item">
+<sng:ref name="of_tag"/>
+</sng:element>
+</sng:start>
+
+<sng:define xmlns:sng="http://relaxng.org/ns/structure/1.0" name="of_tag">
+<sng:element name="of:tag" snga:title="Catégorie d'entrée de blog">
+<snga:documentation>Permet d'indexer les billets du blog par thèmes ou types.</snga:documentation>
+<sng:ref name="of_tagM"/>
+</sng:element>
+</sng:define>
+<sng:define xmlns:sng="http://relaxng.org/ns/structure/1.0" name="of_tagM">
+<sng:element name="of:tagM" snga:title="Méta de catégorie">
+<sng:element name="sp:tag" snga:title="Libellé">
+<snga:documentation>Permet de saisir le mot (ou groupe de mots) correspondant à une catégorie (thème, tag,...) du blog, pertinent pour la recherche de billets.</snga:documentation>
+<sng:data type="string">
+<sng:param name="minLength">1</sng:param>
+</sng:data>
+</sng:element>
+</sng:element>
+</sng:define>
+
+</sng:grammar>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sng:grammar xmlns:of="scpf.org:office" xmlns:sp="http://www.utc.fr/ics/scenari/v3/primitive" xmlns:sc="http://www.utc.fr/ics/scenari/v3/core" xmlns:sng="http://relaxng.org/ns/structure/1.0" xmlns:snga="http://relaxng.org/ns/compatibility/annotations/1.0"  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+<sng:start>
+<sng:element name="sc:item">
+<sng:ref name="of_optDisqus"/>
+</sng:element>
+</sng:start>
+
+<sng:define xmlns:sng="http://relaxng.org/ns/structure/1.0" name="of_optDisqus">
+<sng:element name="of:optDisqus" snga:title="Système de commentaires DISQUS">
+<sng:ref name="of_optDisqusM"/>
+</sng:element>
+</sng:define>
+<sng:define xmlns:sng="http://relaxng.org/ns/structure/1.0" name="of_optDisqusM">
+<sng:element name="of:optDisqusM" snga:title="Système de commentaires DISQUS">
+<snga:documentation>Cette option permet d'ajouter le système de commentaires DISQUS à une publication Site Web (http://disqus.com).</snga:documentation>
+<sng:element name="sp:shortName" snga:title="Nom court DISQUS">
+<snga:documentation>Renseignez ici le "Short Name" déclaré chez DISQUS pour ce site web</snga:documentation>
+<sng:data type="string">
+<sng:param name="minLength">1</sng:param>
+</sng:data>
+</sng:element>
+</sng:element>
+</sng:define>
+
+</sng:grammar>

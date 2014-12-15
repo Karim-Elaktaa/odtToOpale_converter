@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sng:grammar xmlns:of="scpf.org:office" xmlns:sp="http://www.utc.fr/ics/scenari/v3/primitive" xmlns:sc="http://www.utc.fr/ics/scenari/v3/core" xmlns:sng="http://relaxng.org/ns/structure/1.0" xmlns:snga="http://relaxng.org/ns/compatibility/annotations/1.0"  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+<sng:start>
+<sng:element name="sc:item">
+<sng:ref name="of_optOutbrain"/>
+</sng:element>
+</sng:start>
+
+<sng:define xmlns:sng="http://relaxng.org/ns/structure/1.0" name="of_optOutbrain">
+<sng:element name="of:optOutbrain" snga:title="Système de recommandation de contenu Outbrain">
+<sng:ref name="of_optOutbrainM"/>
+</sng:element>
+</sng:define>
+<sng:define xmlns:sng="http://relaxng.org/ns/structure/1.0" name="of_optOutbrainM">
+<sng:element name="of:optOutbrainM" snga:title="Système de recommandation de contenu Outbrain">
+<snga:documentation>Cette option permet d'ajouter le système de recommandation de contenu Outbrain à une publication Site Web (http://www.outbrain.com).</snga:documentation>
+<sng:element name="sp:id" snga:title="Identifiant">
+<snga:documentation>Renseignez ici l'identifiant "OBITm" obtenu sur http://www.outbrain.com/getwidget pour ce site web</snga:documentation>
+<sng:data type="string">
+<sng:param name="minLength">1</sng:param>
+</sng:data>
+</sng:element>
+<sng:optional>
+<sng:element name="sp:claimkey" snga:title="Clé de reconnaissance">
+<snga:documentation>Renseignez ici la clé de reconnaissance "OBKey" obtenue sur http://www.outbrain.com/ pour ce site web (pour utilisateur authentifié)</snga:documentation>
+<sng:data type="string">
+<sng:param name="minLength">1</sng:param>
+</sng:data>
+</sng:element>
+</sng:optional>
+<sng:optional>
+<sng:element name="sp:recMode" snga:title="Mode de recommandation">
+<sng:choice>
+<sng:value type="string" snga:title="Texte">rec</sng:value>
+<sng:value type="string" snga:title="Imagettes">strip</sng:value>
+</sng:choice>
+</sng:element>
+</sng:optional>
+<sng:optional>
+<sng:element name="sp:raterMode" snga:title="Mode de notation">
+<sng:choice>
+<sng:value type="string" snga:title="Étoiles">stars</sng:value>
+<sng:value type="string" snga:title="Coup de pouce">singlethumb</sng:value>
+<sng:value type="string" snga:title="Aucun">none</sng:value>
+</sng:choice>
+</sng:element>
+</sng:optional>
+</sng:element>
+</sng:define>
+
+</sng:grammar>

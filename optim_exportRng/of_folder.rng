@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sng:grammar xmlns:of="scpf.org:office" xmlns:sp="http://www.utc.fr/ics/scenari/v3/primitive" xmlns:sc="http://www.utc.fr/ics/scenari/v3/core" xmlns:sng="http://relaxng.org/ns/structure/1.0" xmlns:snga="http://relaxng.org/ns/compatibility/annotations/1.0"  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+<sng:start>
+<sng:element name="sc:item">
+<sng:ref name="of_folder"/>
+</sng:element>
+</sng:start>
+
+<sng:define xmlns:sng="http://relaxng.org/ns/structure/1.0" name="of_folder">
+<sng:element name="of:folder" snga:title="Dossier de pages web">
+<snga:documentation>Permet de regrouper plusieurs pages dans un menu.</snga:documentation>
+<sng:ref name="of_folderM"/>
+<sng:oneOrMore>
+<sng:choice>
+<sng:element xmlns:sng="http://relaxng.org/ns/structure/1.0" name="sp:subPage" snga:title="Page ou dossier Web">
+<snga:documentation>Permet de créer la structure du Site web, son menu et son plan, en liant des items Page web et Dossier de pages web. </snga:documentation>
+<sng:attribute name="sc:refUri">
+<sng:data type="string">
+<sng:param name="minLength">1</sng:param>
+</sng:data>
+</sng:attribute>
+<sng:optional>
+<sng:ref name="of_filter"/>
+</sng:optional>
+<sng:empty/>
+</sng:element>
+<sng:element xmlns:sng="http://relaxng.org/ns/structure/1.0" name="sp:url" snga:title="Lien externe">
+<snga:documentation>Permet d'ajouter un lien vers un site web externe directement dans le menu.</snga:documentation>
+<sng:optional>
+<sng:ref name="of_filter"/>
+</sng:optional>
+<sng:ref xmlns:sng="http://relaxng.org/ns/structure/1.0" name="of_urlPage"/>
+</sng:element>
+</sng:choice>
+</sng:oneOrMore>
+</sng:element>
+</sng:define>
+<sng:define xmlns:sng="http://relaxng.org/ns/structure/1.0" name="of_urlPage">
+<sng:element name="of:urlPage" snga:title="Lien web externe">
+<sng:ref name="of_urlPageM"/>
+</sng:element>
+</sng:define>
+<sng:define xmlns:sng="http://relaxng.org/ns/structure/1.0" name="of_urlPageM">
+<sng:element name="of:urlPageM" snga:title="Méta de lien web externe">
+<sng:element name="sp:title" snga:title="Titre">
+<snga:documentation>Permet de saisir le nom du lien externe dans le menu du site web</snga:documentation>
+<sng:data type="string">
+<sng:param name="minLength">1</sng:param>
+</sng:data>
+</sng:element>
+<sng:element name="sp:url" snga:title="Adresse">
+<snga:documentation>Permet de saisir l'URL du site web externe vers lequel vous souhaitez faire un lien.</snga:documentation>
+<sng:data type="string">
+<sng:param name="minLength">1</sng:param>
+</sng:data>
+</sng:element>
+</sng:element>
+</sng:define>
+<sng:define xmlns:sng="http://relaxng.org/ns/structure/1.0" name="of_folderM">
+<sng:element name="of:folderM" snga:title="Méta des dossiers de pages web">
+<sng:element name="sp:title" snga:title="Titre de la page">
+<snga:documentation>Permet de saisir le nom de cette page dans le menu du site web.</snga:documentation>
+<sng:data type="string">
+<sng:param name="minLength">1</sng:param>
+</sng:data>
+</sng:element>
+<sng:optional>
+<sng:element name="sp:interactivity" snga:title="Fonctions interactives">
+<sng:choice>
+<sng:ref name="of_interactFolderM"/>
+</sng:choice>
+</sng:element>
+</sng:optional>
+</sng:element>
+</sng:define>
+<sng:define xmlns:sng="http://relaxng.org/ns/structure/1.0" name="of_interactFolderM">
+<sng:element name="of:interactFolderM" snga:title="Fonctions interactives (web folder)">
+<sng:optional>
+<sng:element name="sp:comments" snga:title="Commentaires">
+<snga:documentation>Contrôler l'activation des commentaires sur les sous-éléments</snga:documentation>
+<sng:choice>
+<sng:value type="string" snga:title="Activés">yes</sng:value>
+<sng:value type="string" snga:title="Désactivés">no</sng:value>
+</sng:choice>
+</sng:element>
+</sng:optional>
+<sng:optional>
+<sng:element name="sp:rating" snga:title="Notation">
+<snga:documentation>Contrôler l'activation de la notation sur les sous-éléments</snga:documentation>
+<sng:choice>
+<sng:value type="string" snga:title="Activée">yes</sng:value>
+<sng:value type="string" snga:title="Désactivée">no</sng:value>
+</sng:choice>
+</sng:element>
+</sng:optional>
+</sng:element>
+</sng:define>
+<sng:define xmlns:sng="http://relaxng.org/ns/structure/1.0" name="of_filter">
+<sng:element name="of:filter" snga:title="Filtre par support">
+<sng:zeroOrMore>
+<sng:element name="sp:exclude" snga:title="Exclu du support">
+<sng:choice>
+<sng:value type="string" snga:title="Web">web</sng:value>
+<sng:value type="string" snga:title="Présentation">slide</sng:value>
+<sng:value type="string" snga:title="Papier">paper</sng:value>
+</sng:choice>
+</sng:element>
+</sng:zeroOrMore>
+</sng:element>
+</sng:define>
+
+</sng:grammar>

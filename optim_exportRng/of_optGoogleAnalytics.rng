@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sng:grammar xmlns:of="scpf.org:office" xmlns:sp="http://www.utc.fr/ics/scenari/v3/primitive" xmlns:sc="http://www.utc.fr/ics/scenari/v3/core" xmlns:sng="http://relaxng.org/ns/structure/1.0" xmlns:snga="http://relaxng.org/ns/compatibility/annotations/1.0"  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+<sng:start>
+<sng:element name="sc:item">
+<sng:ref name="of_optGoogleAnalytics"/>
+</sng:element>
+</sng:start>
+
+<sng:define xmlns:sng="http://relaxng.org/ns/structure/1.0" name="of_optGoogleAnalytics">
+<sng:element name="of:optGoogleAnalytics" snga:title="Statistiques Google Analytics">
+<sng:ref name="of_optGoogleAnalyticsM"/>
+</sng:element>
+</sng:define>
+<sng:define xmlns:sng="http://relaxng.org/ns/structure/1.0" name="of_optGoogleAnalyticsM">
+<sng:element name="of:optGoogleAnalyticsM" snga:title="Statistiques Google Analytics">
+<snga:documentation>Cette option permet d'ajouter le système de statistiques Google Analytics à une publication Site Web (http://www.google.com/analytics/).</snga:documentation>
+<sng:element name="sp:id" snga:title="Identifiant de suivi">
+<snga:documentation>Renseignez ici l'identifiant de suivi déclaré chez Google Analytics pour ce site web</snga:documentation>
+<sng:data type="string">
+<sng:param name="minLength">1</sng:param>
+</sng:data>
+</sng:element>
+<sng:optional>
+<sng:element name="sp:hostname" snga:title="Nom de domaine">
+<snga:documentation>Vous pouvez renseigner ici le nom de domaine derrière lequel votre site web sera hébergé. Ceci permet d'activer Google Analytics seulement si les pages du site sont vues depuis celui-ci</snga:documentation>
+<sng:data type="string">
+<sng:param name="minLength">1</sng:param>
+</sng:data>
+</sng:element>
+</sng:optional>
+</sng:element>
+</sng:define>
+
+</sng:grammar>

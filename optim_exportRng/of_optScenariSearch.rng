@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sng:grammar xmlns:of="scpf.org:office" xmlns:sp="http://www.utc.fr/ics/scenari/v3/primitive" xmlns:sc="http://www.utc.fr/ics/scenari/v3/core" xmlns:sng="http://relaxng.org/ns/structure/1.0" xmlns:snga="http://relaxng.org/ns/compatibility/annotations/1.0"  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+<sng:start>
+<sng:element name="sc:item">
+<sng:ref name="of_optScenariSearch"/>
+</sng:element>
+</sng:start>
+
+<sng:define xmlns:sng="http://relaxng.org/ns/structure/1.0" name="of_optScenariSearch">
+<sng:element name="of:optScenariSearch" snga:title="Recherche intégrée">
+<snga:documentation>Cette option ajoute une boîte de recherche intégrée au site.</snga:documentation>
+<sng:ref name="of_optScenariSearchM"/>
+</sng:element>
+</sng:define>
+<sng:define xmlns:sng="http://relaxng.org/ns/structure/1.0" name="of_optScenariSearchM">
+<sng:element name="of:optScenariSearchM" snga:title="Recherche intégrée">
+<snga:documentation>Cette option permet d'ajouter le système de recherche intégré à une publication Site Web.</snga:documentation>
+<sng:element name="sp:resultPresentation" snga:title="Présentation des résultats">
+<snga:documentation>Précisez ici le type de présentation des résultats d'une recherche. Par défaut ceux-ci sont présentés sous forme de menu filtré du site web. Une présentation en liste simple est aussi proposée. </snga:documentation>
+<sng:choice>
+<sng:value type="string" snga:title="menu filtré">treeResults</sng:value>
+<sng:value type="string" snga:title="liste à plat">listResults</sng:value>
+</sng:choice>
+</sng:element>
+</sng:element>
+</sng:define>
+
+</sng:grammar>

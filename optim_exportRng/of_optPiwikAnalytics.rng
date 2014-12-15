@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sng:grammar xmlns:of="scpf.org:office" xmlns:sp="http://www.utc.fr/ics/scenari/v3/primitive" xmlns:sc="http://www.utc.fr/ics/scenari/v3/core" xmlns:sng="http://relaxng.org/ns/structure/1.0" xmlns:snga="http://relaxng.org/ns/compatibility/annotations/1.0"  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+<sng:start>
+<sng:element name="sc:item">
+<sng:ref name="of_optPiwikAnalytics"/>
+</sng:element>
+</sng:start>
+
+<sng:define xmlns:sng="http://relaxng.org/ns/structure/1.0" name="of_optPiwikAnalytics">
+<sng:element name="of:optPiwikAnalytics" snga:title="Statistiques Piwik Analytics">
+<sng:ref name="of_optPiwikAnalyticsM"/>
+</sng:element>
+</sng:define>
+<sng:define xmlns:sng="http://relaxng.org/ns/structure/1.0" name="of_optPiwikAnalyticsM">
+<sng:element name="of:optPiwikAnalyticsM" snga:title="Statistiques Piwik - Open source web analytics">
+<snga:documentation>Cette option permet d'ajouter le système de statistiques Piwik à une publication Site Web (http://piwik.org).</snga:documentation>
+<sng:element name="sp:id" snga:title="Identifiant Piwik de ce site (ID)">
+<snga:documentation>Renseignez ici l'identifiant de ce site (ID) donné par votre installation Piwik (ex : 1). Pour cela allez en mode administrateur sur votre piwik, puis Paramètres &gt; Sites &gt; Gestion des sites &gt; ID</snga:documentation>
+<sng:data type="string">
+<sng:param name="minLength">1</sng:param>
+</sng:data>
+</sng:element>
+<sng:element name="sp:hostname" snga:title="Nom de domaine">
+<snga:documentation>Renseignez ici l'url de votre site piwik : 1. Sans le "http(s) ://" - 2. Avec un / à la fin 3. Exemple : www.monsite.com/piwik/</snga:documentation>
+<sng:data type="string">
+<sng:param name="minLength">1</sng:param>
+</sng:data>
+</sng:element>
+</sng:element>
+</sng:define>
+
+</sng:grammar>

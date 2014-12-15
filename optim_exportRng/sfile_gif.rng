@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sng:grammar xmlns:of="scpf.org:office" xmlns:sp="http://www.utc.fr/ics/scenari/v3/primitive" xmlns:sc="http://www.utc.fr/ics/scenari/v3/core" xmlns:sfm="http://www.utc.fr/ics/scenari/v3/filemeta" xmlns:sng="http://relaxng.org/ns/structure/1.0" xmlns:snga="http://relaxng.org/ns/compatibility/annotations/1.0"  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+<sng:start xmlns:sng="http://relaxng.org/ns/structure/1.0">
+<sng:element name="sfm:gif" snga:title="Image GIF">
+<snga:documentation>GIF est un format d'image bitmap compressé, couramment utilisé pour les images sur le web.</snga:documentation>
+<sng:optional>
+<sng:ref name="of_imgM"/>
+</sng:optional>
+</sng:element>
+</sng:start>
+<sng:define xmlns:sng="http://relaxng.org/ns/structure/1.0" name="of_imgM">
+<sng:element name="of:imgM" snga:title="Meta des images">
+<sng:optional>
+<sng:element name="sp:title" snga:title="Légende">
+<snga:documentation>Permet de saisir la légende qui sera affichée dans les supports de publication.</snga:documentation>
+<sng:data type="string">
+<sng:param name="minLength">1</sng:param>
+</sng:data>
+</sng:element>
+</sng:optional>
+<sng:optional>
+<sng:element name="sp:alt" snga:title="Texte de remplacement">
+<snga:documentation>Permet d'identifier, pour les utilisateurs, le contenu de l'image de manière synthétique.</snga:documentation>
+<sng:data type="string">
+<sng:param name="minLength">1</sng:param>
+</sng:data>
+</sng:element>
+</sng:optional>
+<sng:optional>
+<sng:element name="sp:desc" snga:title="Description (accessibilité)">
+<snga:documentation>Permet de décrire le contenu et le sens d'une ressource complexe pour des utilisateurs placés dans des contextes où les images ne sont pas perceptibles.</snga:documentation>
+<sng:ref name="of_sTxt"/>
+</sng:element>
+</sng:optional>
+</sng:element>
+</sng:define>
+<sng:define xmlns:sng="http://relaxng.org/ns/structure/1.0" name="of_sTxt">
+<sng:element name="of:sTxt" snga:title="Texte">
+<snga:documentation> Texte riche</snga:documentation>
+<sng:ref name="of_sTxt_blocs"/>
+</sng:element>
+</sng:define>
+<sng:define xmlns:sng="http://relaxng.org/ns/structure/1.0" name="of_sTxt_blocs">
+<sng:oneOrMore>
+<sng:choice>
+<sng:element name="sc:para" snga:title="Paragraphe">
+<sng:ref name="of_sTxt_id"/>
+<sng:optional>
+<sng:attribute name="xml:space">
+<sng:value>preserve</sng:value>
+</sng:attribute>
+</sng:optional>
+<sng:ref name="of_sTxt_inline"/>
+</sng:element>
+<sng:element name="sc:itemizedList" snga:title="Liste à puce">
+<sng:optional>
+<sng:attribute name="role">
+<sng:value/>
+</sng:attribute>
+</sng:optional>
+<sng:ref name="of_sTxt_id"/>
+<sng:zeroOrMore>
+<sng:element name="sc:listItem">
+<sng:ref name="of_sTxt_id"/>
+<sng:ref name="of_sTxt_blocs"/>
+</sng:element>
+</sng:zeroOrMore>
+</sng:element>
+<sng:element name="sc:orderedList" snga:title="Liste ordonnée">
+<sng:optional>
+<sng:attribute name="role">
+<sng:value/>
+</sng:attribute>
+</sng:optional>
+<sng:ref name="of_sTxt_id"/>
+<sng:zeroOrMore>
+<sng:element name="sc:listItem">
+<sng:ref name="of_sTxt_id"/>
+<sng:ref name="of_sTxt_blocs"/>
+</sng:element>
+</sng:zeroOrMore>
+</sng:element>
+</sng:choice>
+</sng:oneOrMore>
+</sng:define>
+<sng:define xmlns:sng="http://relaxng.org/ns/structure/1.0" name="of_sTxt_inline">
+<sng:zeroOrMore>
+<sng:choice>
+<sng:text/>
+<sng:element name="sc:uLink" snga:title="Adresse web, email">
+<sng:attribute name="role">
+<sng:value>url</sng:value>
+</sng:attribute>
+<sng:ref name="of_sTxt_id"/>
+<sng:optional>
+<sng:attribute name="url">
+<sng:data type="string">
+<sng:param name="minLength">1</sng:param>
+</sng:data>
+</sng:attribute>
+</sng:optional>
+<sng:optional>
+<sng:attribute name="sc:refUri">
+<sng:data type="string">
+<sng:param name="minLength">1</sng:param>
+</sng:data>
+</sng:attribute>
+</sng:optional>
+<sng:ref name="of_sTxt_inline"/>
+</sng:element>
+<sng:element name="sc:phrase" snga:title="Citation">
+<sng:attribute name="role">
+<sng:value>quote</sng:value>
+</sng:attribute>
+<sng:ref name="of_sTxt_id"/>
+<sng:optional>
+<sng:attribute name="xml:lang">
+<sng:data type="string"/>
+</sng:attribute>
+</sng:optional>
+<sng:ref name="of_sTxt_inline"/>
+</sng:element>
+<sng:element name="sc:phrase" snga:title="Terme spécifique">
+<sng:attribute name="role">
+<sng:value>special</sng:value>
+</sng:attribute>
+<sng:ref name="of_sTxt_id"/>
+<sng:optional>
+<sng:attribute name="xml:lang">
+<sng:data type="string"/>
+</sng:attribute>
+</sng:optional>
+<sng:ref name="of_sTxt_inline"/>
+</sng:element>
+<sng:element name="sc:inlineStyle" snga:title="Mise en relief">
+<sng:attribute name="role">
+<sng:value>emphasis</sng:value>
+</sng:attribute>
+<sng:ref name="of_sTxt_id"/>
+<sng:ref name="of_sTxt_inline"/>
+</sng:element>
+<sng:element name="sc:inlineImg" snga:title="Imagette">
+<sng:attribute name="role">
+<sng:value>ico</sng:value>
+</sng:attribute>
+<sng:ref name="of_sTxt_id"/>
+<sng:attribute name="sc:refUri">
+<sng:data type="string">
+<sng:param name="minLength">1</sng:param>
+</sng:data>
+</sng:attribute>
+<sng:text/>
+</sng:element>
+</sng:choice>
+</sng:zeroOrMore>
+</sng:define>
+<sng:define xmlns:sng="http://relaxng.org/ns/structure/1.0" name="of_sTxt_id">
+<sng:optional>
+<sng:attribute name="sc:id">
+<sng:data type="ID"/>
+</sng:attribute>
+</sng:optional>
+</sng:define>
+</sng:grammar>

@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sng:grammar xmlns:of="scpf.org:office" xmlns:sp="http://www.utc.fr/ics/scenari/v3/primitive" xmlns:sc="http://www.utc.fr/ics/scenari/v3/core" xmlns:sng="http://relaxng.org/ns/structure/1.0" xmlns:snga="http://relaxng.org/ns/compatibility/annotations/1.0"  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+<sng:start>
+<sng:element name="sc:item">
+<sng:ref name="of_fragment"/>
+</sng:element>
+</sng:start>
+
+<sng:define xmlns:sng="http://relaxng.org/ns/structure/1.0" name="of_fragment">
+<sng:element name="of:fragment" snga:title="Fragment">
+<snga:documentation>Est un ensemble réutilisable, non titré, de blocs de contenu et d'items communs.</snga:documentation>
+<sng:zeroOrMore>
+<sng:choice>
+<sng:element xmlns:sng="http://relaxng.org/ns/structure/1.0" name="sp:info" snga:title="Bloc">
+<snga:documentation>Il s'agit du Bloc d'information par défaut, sans intentionnalité particulière.</snga:documentation>
+<sng:optional>
+<sng:ref name="of_filter"/>
+</sng:optional>
+<sng:choice>
+<sng:group>
+<sng:attribute name="sc:refUri">
+<sng:data type="string">
+<sng:param name="minLength">1</sng:param>
+</sng:data>
+</sng:attribute>
+<sng:empty/>
+</sng:group>
+<sng:ref xmlns:sng="http://relaxng.org/ns/structure/1.0" name="of_block"/>
+</sng:choice>
+</sng:element>
+<sng:element xmlns:sng="http://relaxng.org/ns/structure/1.0" name="sp:emphasis" snga:title="Bloc mis en relief">
+<snga:documentation>Il est utilisé pour attirer l'attention du lecteur sur une information importante à l'aide d'une mise en forme spécifique.</snga:documentation>
+<sng:optional>
+<sng:ref name="of_filter"/>
+</sng:optional>
+<sng:choice>
+<sng:group>
+<sng:attribute name="sc:refUri">
+<sng:data type="string">
+<sng:param name="minLength">1</sng:param>
+</sng:data>
+</sng:attribute>
+<sng:empty/>
+</sng:group>
+<sng:ref xmlns:sng="http://relaxng.org/ns/structure/1.0" name="of_block"/>
+</sng:choice>
+</sng:element>
+<sng:element xmlns:sng="http://relaxng.org/ns/structure/1.0" name="sp:extra" snga:title="Bloc complément">
+<snga:documentation>Il identifie une information supplémentaire, facultative, donnée en guise d'approfondissement...</snga:documentation>
+<sng:optional>
+<sng:ref name="of_filter"/>
+</sng:optional>
+<sng:choice>
+<sng:group>
+<sng:attribute name="sc:refUri">
+<sng:data type="string">
+<sng:param name="minLength">1</sng:param>
+</sng:data>
+</sng:attribute>
+<sng:empty/>
+</sng:group>
+<sng:ref xmlns:sng="http://relaxng.org/ns/structure/1.0" name="of_block"/>
+</sng:choice>
+</sng:element>
+<sng:element xmlns:sng="http://relaxng.org/ns/structure/1.0" name="sp:evtList" snga:title="Liste d'évènements">
+<snga:documentation>Permet de lier un regroupement d'un ensemble titré d'Événements afin de les publier conjointement.</snga:documentation>
+<sng:attribute name="sc:refUri">
+<sng:data type="string">
+<sng:param name="minLength">1</sng:param>
+</sng:data>
+</sng:attribute>
+<sng:optional>
+<sng:ref name="of_filter"/>
+</sng:optional>
+<sng:empty/>
+</sng:element>
+<sng:element xmlns:sng="http://relaxng.org/ns/structure/1.0" name="sp:gallery" snga:title="Galerie d'images">
+<snga:documentation>Permet de lier un ensemble de plusieurs ressources (images, tableaux, graphiques) successivement. À la publication web, ces ressources sont passées en boucle, à la manière d'un diaporama.</snga:documentation>
+<sng:attribute name="sc:refUri">
+<sng:data type="string">
+<sng:param name="minLength">1</sng:param>
+</sng:data>
+</sng:attribute>
+<sng:optional>
+<sng:ref name="of_filter"/>
+</sng:optional>
+<sng:empty/>
+</sng:element>
+<sng:element xmlns:sng="http://relaxng.org/ns/structure/1.0" name="sp:tree" snga:title="Arbre de concepts">
+<snga:documentation>Permet de lier une arborescence de type carte heuristique ; c'est à dire un schéma qui permet de représenter visuellement et de suivre le cheminement associatif de la pensée.</snga:documentation>
+<sng:attribute name="sc:refUri">
+<sng:data type="string">
+<sng:param name="minLength">1</sng:param>
+</sng:data>
+</sng:attribute>
+<sng:optional>
+<sng:ref name="of_filter"/>
+</sng:optional>
+<sng:empty/>
+</sng:element>
+<sng:element xmlns:sng="http://relaxng.org/ns/structure/1.0" name="sp:frag" snga:title="Fragment">
+<snga:documentation>Permet de lier un ensemble réutilisable, non titré, de blocs de contenu et d'items communs.</snga:documentation>
+<sng:attribute name="sc:refUri">
+<sng:data type="string">
+<sng:param name="minLength">1</sng:param>
+</sng:data>
+</sng:attribute>
+<sng:empty/>
+</sng:element>
+</sng:choice>
+</sng:zeroOrMore>
+</sng:element>
+</sng:define>
+<sng:define xmlns:sng="http://relaxng.org/ns/structure/1.0" name="of_block">
+<sng:element name="of:block" snga:title="Bloc de contenu">
+<sng:ref name="of_blockM"/>
+<sng:element name="sp:co" snga:title="Contenu">
+<sng:ref xmlns:sng="http://relaxng.org/ns/structure/1.0" name="of_flow"/>
+</sng:element>
+</sng:element>
+</sng:define>
+<sng:define xmlns:sng="http://relaxng.org/ns/structure/1.0" name="of_flow">
+<sng:element name="of:flow" snga:title="Contenu">
+<sng:element name="sp:txt" snga:title="Texte">
+<sng:ref xmlns:sng="http://relaxng.org/ns/structure/1.0" name="of_txt"/>
+</sng:element>
+</sng:element>
+</sng:define>
+<sng:define xmlns:sng="http://relaxng.org/ns/structure/1.0" name="of_txt">
+<sng:element name="of:txt" snga:title="Texte">
+<snga:documentation> Texte riche avec inclusion de références </snga:documentation>
+<sng:ref name="of_txt_blocs"/>
+</sng:element>
+</sng:define>
+<sng:define xmlns:sng="http://relaxng.org/ns/structure/1.0" name="of_txt_blocs">
+<sng:oneOrMore>
+<sng:choice>
+<sng:element name="sc:para" snga:title="Paragraphe">
+<sng:ref name="of_txt_id"/>
+<sng:optional>
+<sng:attribute name="xml:space">
+<sng:value>preserve</sng:value>
+</sng:attribute>
+</sng:optional>
+<sng:ref name="of_txt_inline"/>
+</sng:element>
+<sng:element name="sc:itemizedList" snga:title="Liste à puce">
+<sng:optional>
+<sng:attribute name="role">
+<sng:value/>
+</sng:attribute>
+</sng:optional>
+<sng:ref name="of_txt_id"/>
+<sng:zeroOrMore>
+<sng:element name="sc:listItem">
+<sng:ref name="of_txt_id"/>
+<sng:ref name="of_txt_blocs"/>
+</sng:element>
+</sng:zeroOrMore>
+</sng:element>
+<sng:element name="sc:orderedList" snga:title="Liste ordonnée">
+<sng:optional>
+<sng:attribute name="role">
+<sng:value/>
+</sng:attribute>
+</sng:optional>
+<sng:ref name="of_txt_id"/>
+<sng:zeroOrMore>
+<sng:element name="sc:listItem">
+<sng:ref name="of_txt_id"/>
+<sng:ref name="of_txt_blocs"/>
+</sng:element>
+</sng:zeroOrMore>
+</sng:element>
+<sng:element name="sc:table" snga:title="Tableau">
+<sng:optional>
+<sng:attribute name="role">
+<sng:value/>
+</sng:attribute>
+</sng:optional>
+<sng:ref name="of_txt_id"/>
+<sng:optional>
+<sng:element name="sc:caption" snga:title="">
+<sng:ref name="of_txt_id"/>
+<sng:ref name="of_txt_inline"/>
+<sng:optional>
+<sng:attribute name="xml:space">
+<sng:value>preserve</sng:value>
+</sng:attribute>
+</sng:optional>
+</sng:element>
+</sng:optional>
+<sng:zeroOrMore>
+<sng:choice>
+<sng:element name="sc:column" snga:title="Colonne">
+<sng:optional>
+<sng:attribute name="role">
+<sng:value/>
+</sng:attribute>
+</sng:optional>
+<sng:ref name="of_txt_id"/>
+<sng:attribute name="width">
+<sng:data type="string"/>
+</sng:attribute>
+</sng:element>
+<sng:element name="sc:column" snga:title="Colonne de total">
+<sng:attribute name="role">
+<sng:value>total</sng:value>
+</sng:attribute>
+<sng:ref name="of_txt_id"/>
+<sng:attribute name="width">
+<sng:data type="string"/>
+</sng:attribute>
+</sng:element>
+</sng:choice>
+</sng:zeroOrMore>
+<sng:zeroOrMore>
+<sng:choice>
+<sng:element name="sc:row" snga:title="Ligne">
+<sng:optional>
+<sng:attribute name="role">
+<sng:value/>
+</sng:attribute>
+</sng:optional>
+<sng:ref name="of_txt_id"/>
+<sng:ref name="of_txt_cells_"/>
+</sng:element>
+<sng:element name="sc:row" snga:title="Ligne d'entête">
+<sng:attribute name="role">
+<sng:value>head</sng:value>
+</sng:attribute>
+<sng:ref name="of_txt_id"/>
+<sng:ref name="of_txt_cells_"/>
+</sng:element>
+<sng:element name="sc:row" snga:title="Ligne de total">
+<sng:attribute name="role">
+<sng:value>total</sng:value>
+</sng:attribute>
+<sng:ref name="of_txt_id"/>
+<sng:ref name="of_txt_cells_"/>
+</sng:element>
+</sng:choice>
+</sng:zeroOrMore>
+<sng:ref name="of_txt_cells_"/>
+</sng:element>
+<sng:element name="sc:table" snga:title="Tableau de mise en forme">
+<sng:attribute name="role">
+<sng:value>layout</sng:value>
+</sng:attribute>
+<sng:ref name="of_txt_id"/>
+<sng:zeroOrMore>
+<sng:element name="sc:column" snga:title="Colonne">
+<sng:optional>
+<sng:attribute name="role">
+<sng:value/>
+</sng:attribute>
+</sng:optional>
+<sng:ref name="of_txt_id"/>
+<sng:attribute name="width">
+<sng:data type="string"/>
+</sng:attribute>
+</sng:element>
+</sng:zeroOrMore>
+<sng:zeroOrMore>
+<sng:element name="sc:row" snga:title="Ligne">
+<sng:optional>
+<sng:attribute name="role">
+<sng:value/>
+</sng:attribute>
+</sng:optional>
+<sng:ref name="of_txt_id"/>
+<sng:ref name="of_txt_cells_layout"/>
+</sng:element>
+</sng:zeroOrMore>
+<sng:ref name="of_txt_cells_layout"/>
+</sng:element>
+<sng:element name="sc:extBlock" snga:title="Image, graphique, tableau, équation">
+<sng:attribute name="role">
+<sng:value>img</sng:value>
+</sng:attribute>
+<sng:ref name="of_txt_id"/>
+<sng:attribute name="sc:refUri">
+<sng:data type="string">
+<sng:param name="minLength">1</sng:param>
+</sng:data>
+</sng:attribute>
+</sng:element>
+<sng:element name="sc:extBlock" snga:title="Animation">
+<sng:attribute name="role">
+<sng:value>anim</sng:value>
+</sng:attribute>
+<sng:ref name="of_txt_id"/>
+<sng:attribute name="sc:refUri">
+<sng:data type="string">
+<sng:param name="minLength">1</sng:param>
+</sng:data>
+</sng:attribute>
+</sng:element>
+</sng:choice>
+</sng:oneOrMore>
+</sng:define>
+<sng:define xmlns:sng="http://relaxng.org/ns/structure/1.0" name="of_txt_inline">
+<sng:zeroOrMore>
+<sng:choice>
+<sng:text/>
+<sng:element name="sc:uLink" snga:title="Adresse web, email">
+<sng:attribute name="role">
+<sng:value>url</sng:value>
+</sng:attribute>
+<sng:ref name="of_txt_id"/>
+<sng:optional>
+<sng:attribute name="url">
+<sng:data type="string">
+<sng:param name="minLength">1</sng:param>
+</sng:data>
+</sng:attribute>
+</sng:optional>
+<sng:optional>
+<sng:attribute name="sc:refUri">
+<sng:data type="string">
+<sng:param name="minLength">1</sng:param>
+</sng:data>
+</sng:attribute>
+</sng:optional>
+<sng:ref name="of_txt_inline"/>
+</sng:element>
+<sng:element name="sc:uLink" snga:title="Définition">
+<sng:attribute name="role">
+<sng:value>def</sng:value>
+</sng:attribute>
+<sng:ref name="of_txt_id"/>
+<sng:optional>
+<sng:attribute name="url">
+<sng:data type="string">
+<sng:param name="minLength">1</sng:param>
+</sng:data>
+</sng:attribute>
+</sng:optional>
+<sng:optional>
+<sng:attribute name="sc:refUri">
+<sng:data type="string">
+<sng:param name="minLength">1</sng:param>
+</sng:data>
+</sng:attribute>
+</sng:optional>
+<sng:ref name="of_txt_inline"/>
+</sng:element>
+<sng:element name="sc:uLink" snga:title="Bibliographie">
+<sng:attribute name="role">
+<sng:value>doc</sng:value>
+</sng:attribute>
+<sng:ref name="of_txt_id"/>
+<sng:optional>
+<sng:attribute name="url">
+<sng:data type="string">
+<sng:param name="minLength">1</sng:param>
+</sng:data>
+</sng:attribute>
+</sng:optional>
+<sng:optional>
+<sng:attribute name="sc:refUri">
+<sng:data type="string">
+<sng:param name="minLength">1</sng:param>
+</sng:data>
+</sng:attribute>
+</sng:optional>
+<sng:ref name="of_txt_inline"/>
+</sng:element>
+<sng:element name="sc:uLink" snga:title="Référence interne">
+<sng:attribute name="role">
+<sng:value>ref</sng:value>
+</sng:attribute>
+<sng:ref name="of_txt_id"/>
+<sng:optional>
+<sng:attribute name="url">
+<sng:data type="string">
+<sng:param name="minLength">1</sng:param>
+</sng:data>
+</sng:attribute>
+</sng:optional>
+<sng:optional>
+<sng:attribute name="sc:refUri">
+<sng:data type="string">
+<sng:param name="minLength">1</sng:param>
+</sng:data>
+</sng:attribute>
+</sng:optional>
+<sng:ref name="of_txt_inline"/>
+</sng:element>
+<sng:element name="sc:phrase" snga:title="Citation">
+<sng:attribute name="role">
+<sng:value>quote</sng:value>
+</sng:attribute>
+<sng:ref name="of_txt_id"/>
+<sng:optional>
+<sng:attribute name="xml:lang">
+<sng:data type="string"/>
+</sng:attribute>
+</sng:optional>
+<sng:ref name="of_txt_inline"/>
+</sng:element>
+<sng:element name="sc:phrase" snga:title="Terme spécifique">
+<sng:attribute name="role">
+<sng:value>special</sng:value>
+</sng:attribute>
+<sng:ref name="of_txt_id"/>
+<sng:optional>
+<sng:attribute name="xml:lang">
+<sng:data type="string"/>
+</sng:attribute>
+</sng:optional>
+<sng:ref name="of_txt_inline"/>
+</sng:element>
+<sng:element name="sc:inlineStyle" snga:title="Mise en relief">
+<sng:attribute name="role">
+<sng:value>emphasis</sng:value>
+</sng:attribute>
+<sng:ref name="of_txt_id"/>
+<sng:ref name="of_txt_inline"/>
+</sng:element>
+<sng:element name="sc:inlineImg" snga:title="Imagette">
+<sng:attribute name="role">
+<sng:value>ico</sng:value>
+</sng:attribute>
+<sng:ref name="of_txt_id"/>
+<sng:attribute name="sc:refUri">
+<sng:data type="string">
+<sng:param name="minLength">1</sng:param>
+</sng:data>
+</sng:attribute>
+<sng:text/>
+</sng:element>
+</sng:choice>
+</sng:zeroOrMore>
+</sng:define>
+<sng:define xmlns:sng="http://relaxng.org/ns/structure/1.0" name="of_txt_id">
+<sng:optional>
+<sng:attribute name="sc:id">
+<sng:data type="ID"/>
+</sng:attribute>
+</sng:optional>
+</sng:define>
+<sng:define xmlns:sng="http://relaxng.org/ns/structure/1.0" name="of_txt_cells_">
+<sng:zeroOrMore>
+<sng:choice>
+<sng:element name="sc:cell" snga:title="Cellule de texte">
+<sng:optional>
+<sng:attribute name="role">
+<sng:value/>
+</sng:attribute>
+</sng:optional>
+<sng:ref name="of_txt_id"/>
+<sng:optional>
+<sng:attribute name="rowSpan">
+<sng:data type="string"/>
+</sng:attribute>
+</sng:optional>
+<sng:optional>
+<sng:attribute name="colSpan">
+<sng:data type="string"/>
+</sng:attribute>
+</sng:optional>
+<sng:optional>
+<sng:ref name="of_txt_blocs"/>
+</sng:optional>
+</sng:element>
+<sng:element name="sc:cell" snga:title="Cellule de nombre">
+<sng:attribute name="role">
+<sng:value>num</sng:value>
+</sng:attribute>
+<sng:ref name="of_txt_id"/>
+<sng:optional>
+<sng:attribute name="rowSpan">
+<sng:data type="string"/>
+</sng:attribute>
+</sng:optional>
+<sng:optional>
+<sng:attribute name="colSpan">
+<sng:data type="string"/>
+</sng:attribute>
+</sng:optional>
+<sng:optional>
+<sng:ref name="of_txt_blocs"/>
+</sng:optional>
+</sng:element>
+<sng:element name="sc:cell" snga:title="Cellule de mot">
+<sng:attribute name="role">
+<sng:value>word</sng:value>
+</sng:attribute>
+<sng:ref name="of_txt_id"/>
+<sng:optional>
+<sng:attribute name="rowSpan">
+<sng:data type="string"/>
+</sng:attribute>
+</sng:optional>
+<sng:optional>
+<sng:attribute name="colSpan">
+<sng:data type="string"/>
+</sng:attribute>
+</sng:optional>
+<sng:optional>
+<sng:ref name="of_txt_blocs"/>
+</sng:optional>
+</sng:element>
+</sng:choice>
+</sng:zeroOrMore>
+</sng:define>
+<sng:define xmlns:sng="http://relaxng.org/ns/structure/1.0" name="of_txt_cells_layout">
+<sng:zeroOrMore>
+<sng:element name="sc:cell" snga:title="Cellule">
+<sng:optional>
+<sng:attribute name="role">
+<sng:value/>
+</sng:attribute>
+</sng:optional>
+<sng:ref name="of_txt_id"/>
+<sng:optional>
+<sng:attribute name="rowSpan">
+<sng:data type="string"/>
+</sng:attribute>
+</sng:optional>
+<sng:optional>
+<sng:attribute name="colSpan">
+<sng:data type="string"/>
+</sng:attribute>
+</sng:optional>
+<sng:optional>
+<sng:ref name="of_txt_blocs"/>
+</sng:optional>
+</sng:element>
+</sng:zeroOrMore>
+</sng:define>
+<sng:define xmlns:sng="http://relaxng.org/ns/structure/1.0" name="of_blockM">
+<sng:element name="of:blockM" snga:title="Titre d'un bloc de contenu">
+<sng:optional>
+<sng:element name="sp:title" snga:title="Titre">
+<snga:documentation>Permet de saisir le nom de la rubrique dans un contenu.</snga:documentation>
+<sng:data type="string">
+<sng:param name="minLength">1</sng:param>
+</sng:data>
+</sng:element>
+</sng:optional>
+</sng:element>
+</sng:define>
+<sng:define xmlns:sng="http://relaxng.org/ns/structure/1.0" name="of_filter">
+<sng:element name="of:filter" snga:title="Filtre par support">
+<sng:zeroOrMore>
+<sng:element name="sp:exclude" snga:title="Exclu du support">
+<sng:choice>
+<sng:value type="string" snga:title="Web">web</sng:value>
+<sng:value type="string" snga:title="Présentation">slide</sng:value>
+<sng:value type="string" snga:title="Papier">paper</sng:value>
+</sng:choice>
+</sng:element>
+</sng:zeroOrMore>
+</sng:element>
+</sng:define>
+
+</sng:grammar>
