@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="exOOOsToOpale" default="convert" basedir=".">
+    <!-- =================================================================== -->
+    <!-- Initialisation -->
+    <!-- =================================================================== -->
+    
+    <!--
+        1) Placer le fichier odt dans le dossier source
+        2) Lancer "ant -buildfile odt_hdoc.ant"
+        3) Le fichier Opale (extension .quiz) est généré dans le dossier out/
+    -->
+    
+    <target name="convert">
+        <echo message="Start transformation"/>
+        <echo message="Start unzip"/>
+        
+        <chmod file="./**" perm="g+w" type="both"/>
+        <!-- Transforme le odt en zip et l'import dans le dossier source du convertisseur-->
+        <chmod file="${InputPath}" perm="777"/>
+        <copy file="${InputPath}" tofile="source/monDoc.zip"> </copy>
+        <chmod file="source/monDoc.zip" perm="777"/>
+        <!-- Dézip le zip obtenu-->
+        <unzip dest="source/odt">
+            <fileset dir="source">
+                <include name="**/*.zip"/>
+            </fileset>
+        </unzip>
+        <chmod file="source/odt" perm="777"/>
+        <chmod file="./source/odt/content.xml" perm="777"/>
+        
+        <!-- Appel de la feuille xslt traiter les différentes balises
+        <xslt in="outJava/content.xml" out="outXslt/build/content.xml" style="source/modele.xslt">
+            <outputproperty name="method" value="xml"/>
+            <outputproperty name="standalone" value="yes"/>
+            <outputproperty name="encoding" value="utf_8"/>
+            <outputproperty name="indent" value="yes"/>
+        </xslt>
+        -->        
+        <echo message="End transformation"/>    
+        
+    </target>
+</project>

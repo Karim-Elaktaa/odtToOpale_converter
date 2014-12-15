@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sc:item xmlns:sc="http://www.utc.fr/ics/scenari/v3/core">
+	<op:cloze xmlns:sp="http://www.utc.fr/ics/scenari/v3/primitive" xmlns:op="utc.fr:ics/opale3">
+		<op:exeM/>
+		<sc:gapText>
+			<op:clozeTxt>
+				<sc:para xml:space="preserve">Blabla <sc:textLeaf role="gap">trou1</sc:textLeaf> bloblo</sc:para>
+				<sc:para xml:space="preserve"><sc:textLeaf role="gap">trou2</sc:textLeaf> titi</sc:para>
+			</op:clozeTxt>
+		</sc:gapText>
+	</op:cloze>
+</sc:item>
