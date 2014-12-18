@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sc:item xmlns:sc="http://www.utc.fr/ics/scenari/v3/core"
+         xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0">
+   <op:cloze xmlns:sp="http://www.utc.fr/ics/scenari/v3/primitive"
+             xmlns:op="utc.fr:ics/opale3">
+      <op:exeM/>
+      <sc:gapText>
+         <op:clozeTxt>
+            <sc:para xml:space="preserve">
+                        Le président de la République est élu au suffrage <sc:textLeaf role="gap">universel</sc:textLeaf>. 
+                  </sc:para>
+            <sc:para xml:space="preserve">
+                        Un mandat de cinq ans s'appelle un <sc:textLeaf role="gap">quinquennat</sc:textLeaf>. 
+                  </sc:para>
+            <sc:para xml:space="preserve">
+                        Le <sc:textLeaf role="gap"/>président de la République peut demander aux électeurs français de choisir de nouveaux députés. Il peut donc <sc:textLeaf role="gap">dissoudre</sc:textLeaf>l'assemblée nationale.
+                  </sc:para>
+            <sc:para xml:space="preserve">
+                        Le <sc:textLeaf role="gap">magistrature</sc:textLeaf>président de la République garantit l'indépendance de la .
+                  </sc:para>
+            <sc:para xml:space="preserve">
+                        L'assemblée nationale est composée de 577 <sc:textLeaf role="gap">députés</sc:textLeaf>.
+                  </sc:para>
+            <sc:para xml:space="preserve">
+                        Avec le <sc:textLeaf role="gap">sénat</sc:textLeaf>, l'assemblée nationale fait les lois de notre pays.
+                  </sc:para>
+            <sc:para xml:space="preserve">
+                        L’assemblée nationale a le pouvoir de faire démissionner le premier ministre si la majorité des députés est d’accord. C’est la <sc:textLeaf role="gap"/>. 
+                  </sc:para>
+            <sc:para xml:space="preserve">
+                        L'assemblée nationale se réunit à Paris au palais <sc:textLeaf role="gap">Bourbon</sc:textLeaf>.
+                  </sc:para>
+            <sc:para xml:space="preserve">
+                        Le président de la République signe les lois, on dit qu'elles sont . 
+                  </sc:para>
+            <sc:para xml:space="preserve">
+                        Un député est élu dans une <sc:textLeaf role="gap">circonscription</sc:textLeaf>.
+                  </sc:para>
+         </op:clozeTxt>
+      </sc:gapText>
+   </op:cloze>
+</sc:item>

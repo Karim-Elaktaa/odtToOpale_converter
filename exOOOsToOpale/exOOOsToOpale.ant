@@ -11,19 +11,18 @@
     -->
     
     <!-- Properties -->
-    <property name="InputPath" value="source/"/>
+    <property name="SourcePath" value="source"/>
     <property name="TmpZipFileName" value="source/unzip/tmp.zip"/>
     <property name="UnZipFileName" value="source/unzip/tmp"/>
     <property name="OutputPath"	value="out/content.quiz"/>
     <property name="LibPath"	value="lib\saxon9he.jar"/>
     <property name="XSLTpath"	value="XSLT/exOOOsToOpale_tat.xsl"/>
     <!-- Debug properties -->
-    <property name="FileName" value="${InputPath/}la_republique1.odt"/>
-    
-    <property name="InputPath" value="${InputPath}/${FileName}"/>
+    <property name="FileName" value="la_republique1.odt"/>
+    <!-- Final InputPath (SourcePath + FileName) -->
+    <property name="InputPath" value="${SourcePath}/${FileName}"/>
     
     <target name="ConvertExOOOs">
-        
         <echo message="Start exOOOsToOpale transformation"/>
         
         <antcall target="CleanDirectory"/>
@@ -31,45 +30,43 @@
         <antcall target="Transformation"/>
                        
         <echo message="End transformation"/>    
-        
     </target>
     
     <target name="CleanDirectory">
-        <echo message="Clean directory"/>
-        
+        <echo message="Clean directories"/>
         <delete dir="out"/>
         <delete dir="source/unzip/"/>
-        <delete file="XSLT"/>
     </target>
     
     <target name="UnZip">
-        <echo message="Unzip source"/>
-        
+        <echo message="Unzip source ${InputPath}"/>
         <chmod file="./**" perm="g+w" type="both"/>
         
-        <!-- Transforme le odt en zip et l'import dans le dossier source du convertisseur-->       
+        <!-- Transform ODT in a .zip file-->       
         <chmod file="${InputPath}" perm="777"/>
         <copy file="${InputPath}" tofile="${TmpZipFileName}"> </copy>
         <chmod file="${TmpZipFileName}" perm="777"/>
         
-        <!-- Dézip le zip obtenu-->
+        <!-- Unzip the .zip file-->
         <unzip dest="${UnZipFileName}">
             <fileset dir="source/unzip">
                 <include name="**/*.zip"/>
             </fileset>
         </unzip>
+        
+        <!-- Add the rights to modify the source file -->
         <chmod file="${UnZipFileName}" perm="777"/>
         <chmod file="${UnZipFileName}/content.xml" perm="777"/>
     </target>
     
     <target name="Transformation">
         <echo message="XSLT Transformation"/>
-        
-        <!-- Appel de la feuille xslt traiter les différentes balises -->
+        <!-- Execute the XSL-XSLT transformation using the specific library (Saxon processor) -->
         <xslt classpath="${LibPath}" in="${UnZipFileName}/content.xml" out="${OutputPath}" style="XSLT/exOOOsToOpale_tat.xsl">
             <factory name="net.sf.saxon.TransformerFactoryImpl"/>
             <outputproperty name="method" value="xml"/>           
             <outputproperty name="indent" value="yes"/>
         </xslt>
     </target>
+    
 </project>
