@@ -2,7 +2,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
       xmlns:xs="http://www.w3.org/2001/XMLSchema"
       xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0"
-
+      xpath-default-namespace="urn:oasis:names:tc:opendocument:xmlns:office:1.0"
       exclude-result-prefixes="xs" version="2.0">
       <xsl:output method="xml" indent="yes"/>
 
@@ -41,7 +41,7 @@
             xpath-default-namespace="urn:oasis:names:tc:opendocument:xmlns:text:1.0">
             <sc:textLeaf xmlns:sc="http://www.utc.fr/ics/scenari/v3/core" role="gap">
                   <xsl:variable name="idControl">
-                        <xsl:value-of select="./following-sibling::*[1]/@draw:control,./preceding-sibling::*[1]/@draw:control"
+                        <xsl:value-of select="./following-sibling::*[1]/@draw:control"
                               xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0"/>
                   </xsl:variable>
                   <xsl:value-of select="//form:text[@form:id=$idControl]/@form:title"

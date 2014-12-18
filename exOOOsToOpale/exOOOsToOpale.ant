@@ -1,48 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="exOOOsToOpale" default="ConvertExOOOs" basedir=".">
-    <!-- =================================================================== -->
-    <!-- ANT Buildfile for the exOOOs to Opale Transformation -->
-    <!-- =================================================================== -->
+<!-- =================================================================== -->
+<!-- ANT Buildfile for the exOOOs to Opale Transformation -->
+<!-- =================================================================== -->
+
+<!--
+    !! You need to put the file(s) to modify in the source folder !!
     
-    <!--
-        1) Put the file to modify in the source folder
-        2) Execute "ant -buildfile exOOOsToOpale.ant -DFilename=<myFile.odt>"
-        3) The converted output file is placed in the out directory (.quiz)
-    -->
+    Two ways to launch the transformation :
+    1) Execute "ant -buildfile exOOOsToOpale.ant -DFilename=<myFile.odt>"
+        [the transformation is launched for your specified file only]
+        
+    2) Execute "ant -buildfile exOOOsToOpale.ant"
+        [the transformation is launched for all the files in the source folder]
+    
+    !! The converted output file(s) is/are placed in the out directory (.quiz file(s)) !!
+-->
+
+<project name="exOOOsToOpale" default="LaunchTransformation" basedir=".">
+    
+    <!-- Task definition for antcontrib tasks (for & var) -->
+    <taskdef resource="net/sf/antcontrib/antlib.xml" >
+        <classpath>
+            <pathelement location="./lib/ant-contrib.jar"/>
+        </classpath>
+    </taskdef>
     
     <!-- Properties -->
+    <property name="AntFileName" value="exOOOsToOpale.ant"></property>
     <property name="SourcePath" value="source"/>
     <property name="TmpZipFileName" value="source/unzip/tmp.zip"/>
     <property name="UnZipFileName" value="source/unzip/tmp"/>
-    <property name="OutputPath"	value="out/content.quiz"/>
+    <property name="OutputFileName"	value="out/content.quiz"/>
     <property name="LibPath"	value="lib\saxon9he.jar"/>
     <property name="XSLTpath"	value="XSLT/exOOOsToOpale_tat.xsl"/>
+    <property name="separator" value="${line.separator} ******************************** ${line.separator}"></property>
     <!-- Debug properties 
         <property name="Filename" value="la_republique1.odt"/>-->
     <!-- Final InputPath (SourcePath + FileName) -->
     <property name="InputPath" value="${SourcePath}/${Filename}"/>
     
+    <!-- Task to check is the property Filename is set -->
+    <target name="checkIfFilenameIsSet">
+        <condition property="Filename.set">
+            <isset property="Filename"/>
+        </condition>    
+    </target>
+    
+    <!-- Default task, launch the transformation if the property Filename is set or launch the source folder listing  -->
+    <target name="LaunchTransformation" depends="checkIfFilenameIsSet, GetSourceDirectoryListing" if="Filename.set">
+        <echo message="${separator}"></echo>
+        <echo message="LaunchTransformation ${Filename}"></echo>
+        <property name="InputPath" value=""></property>
+        <var name="InputPath" unset="true"/>
+        <property name="InputPath" value="${SourcePath}/${Filename}"></property>
+        <antcall target="ConvertExOOOs"></antcall>
+    </target>
+    
+    <!-- If the Filename property is not set, we list all the files in the source folder -->
+    <target name="GetSourceDirectoryListing" depends="checkIfFilenameIsSet" unless="Filename.set">
+        <echo message="${separator}"></echo>
+        <echo message="GetSourceDirectoryListing"></echo>
+        <antcall target="SourceDirectoryListing"></antcall>
+    </target>
+    
+    <target name="SourceDirectoryListing">
+        <!-- Use of the ant contribution task 'for' -->
+        <for param="file">
+            <path>
+                <fileset dir="./source" includes="*.odt"/>
+            </path>
+            <sequential>
+                <property name="Filename" value=""></property>
+                <var name="Filename" unset="true"/>
+                <basename property="Filename" file="@{file}"/>
+                <antcall target="LaunchTransformation"></antcall>
+            </sequential>
+        </for>
+    </target>
+    
+    <!-- Task which launches the conversion of the current file -->
     <target name="ConvertExOOOs">
-        <echo message="Start exOOOsToOpale transformation"/>
+        <echo message="${separator}"></echo>
+        <echo message="Start exOOOsToOpale transformation for ${InputPath}"/>
         
-        <antcall target="CleanDirectory"/>
+        <antcall target="CleanUnzipDirectory"/>
         <antcall target="UnZip"/>
         <antcall target="Transformation"/>
                        
         <echo message="End transformation"/>    
     </target>
     
-    <target name="CleanDirectory">
+    <target name="CleanAllDirectories">
+        <echo message="${separator}"></echo>
         <echo message="Clean directories"/>
         <delete dir="out"/>
+        <antcall target="CleanUnzipDirectory"/>
+    </target>
+    
+    <target name="CleanUnzipDirectory">
         <delete dir="source/unzip/"/>
     </target>
     
     <target name="UnZip">
+        <echo message="${separator}"></echo>
         <echo message="Unzip source ${InputPath}"/>
         <chmod file="./**" perm="g+w" type="both"/>
         
-        <!-- Transform ODT in a .zip file-->       
+        <!-- Transform the ODT file in a .zip file-->       
         <chmod file="${InputPath}" perm="777"/>
         <copy file="${InputPath}" tofile="${TmpZipFileName}"> </copy>
         <chmod file="${TmpZipFileName}" perm="777"/>
@@ -59,14 +123,26 @@
         <chmod file="${UnZipFileName}/content.xml" perm="777"/>
     </target>
     
+    <!-- Task which launches the XSL-XSLT transformation -->
     <target name="Transformation">
+        <echo message="${separator}"></echo>
         <echo message="XSLT Transformation"/>
+        
+        <!-- Generate the new output filename -->
+        <property name="OutputFileName" value="empty"></property>
+        <var name="OutputFileName" unset="true"/>
+        <property name="TmpOutputFilename" value="empty"></property>
+        <var name="TmpOutputFilename" unset="true"/>
+        <basename property="TmpOutputFilename" file="${Filename}" suffix=".odt"/>
+        <property name="OutputFileName" value="${TmpOutputFilename}.quiz"></property>
+                
         <!-- Execute the XSL-XSLT transformation using the specific library (Saxon processor) -->
-        <xslt classpath="${LibPath}" in="${UnZipFileName}/content.xml" out="${OutputPath}" style="XSLT/exOOOsToOpale_tat.xsl">
+        <xslt classpath="${LibPath}" in="${UnZipFileName}/content.xml" out="out/${OutputFileName}" style="${XSLTpath}">
             <factory name="net.sf.saxon.TransformerFactoryImpl"/>
             <outputproperty name="method" value="xml"/>           
             <outputproperty name="indent" value="yes"/>
         </xslt>
+        <echo message="New file created ! : out/${OutputFileName}"></echo>
     </target>
     
 </project>
