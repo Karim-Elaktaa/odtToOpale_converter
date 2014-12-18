@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="exOOOsToOpale" default="ConvertExOOOs" basedir=".">
     <!-- =================================================================== -->
-    <!-- Initialisation -->
+    <!-- ANT Buildfile for the exOOOs to Opale Transformation -->
     <!-- =================================================================== -->
     
     <!--
-        1) Placer le fichier odt dans le dossier source
-        2) Lancer "ant -buildfile odt_hdoc.ant"
-        3) Le fichier Opale (extension .quiz) est généré dans le dossier out/
+        1) Put the file to modify in the source folder
+        2) Execute "ant -buildfile exOOOsToOpale.ant -FileName=<myFile.odt>"
+        3) The converted output file is placed in the out directory (.quiz)
     -->
     
     <!-- Properties -->
@@ -17,8 +17,8 @@
     <property name="OutputPath"	value="out/content.quiz"/>
     <property name="LibPath"	value="lib\saxon9he.jar"/>
     <property name="XSLTpath"	value="XSLT/exOOOsToOpale_tat.xsl"/>
-    <!-- Debug properties -->
-    <property name="FileName" value="la_republique1.odt"/>
+    <!-- Debug properties 
+        <property name="FileName" value="la_republique1.odt"/>-->
     <!-- Final InputPath (SourcePath + FileName) -->
     <property name="InputPath" value="${SourcePath}/${FileName}"/>
     
