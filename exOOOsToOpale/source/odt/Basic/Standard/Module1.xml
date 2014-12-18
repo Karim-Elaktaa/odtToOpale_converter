@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
+<script:module xmlns:script="http://openoffice.org/2000/script" script:name="Module1" script:language="StarBasic">REM  *****  BASIC  ***** Jean-Georges Cloarec
+Option Explicit
+
+Global mon_prenom as string
+Global nbessais as long
+Dim boite(10) as object
+Dim vForm as object, oDocument as object
+Dim reponse(10) as string
+Dim b_rep as string, m_rep as string
+Dim text_rep as object
+Dim lect as string, chemin as string
+Dim img as object
+Dim content as string, vide as string, triste as string, normale as string
+Dim prenom as object
+&apos;Dim mon_prenom as string
+Dim note as object
+
+Sub identite
+Dim accord as object, annule as object
+oDocument=ThisComponent
+vForm=THISCOMPONENT.DrawPage.Forms.getByName(&quot;Standard&quot;)
+prenom = vForm.getByName (&quot;prenom&quot;)
+accord = vForm.getByName (&quot;nom_1&quot;)
+&apos;annule = vForm.getByName (&quot;Annule&quot;)
+mon_prenom = prenom.text
+&apos;print mon_prenom
+End sub 
+
+
+
+Sub supprimer
+Dim accord as object, annule as object
+oDocument=ThisComponent
+vForm=THISCOMPONENT.DrawPage.Forms.getByName(&quot;Standard&quot;)
+		prenom = vForm.getByName (&quot;prenom&quot;)
+		annule = Vform.getByName (&quot;Annule&quot;)		
+		mon_prenom = prenom.text
+	prenom.text=&quot;&quot;
+	
+end sub 
+
+
+
+Sub verif
+Dim i as long,  j as long
+Dim nbmrep as long, nbbrep as long &apos;nbessai as long
+Dim essais as object
+Dim nbrep as long
+oDocument=ThisComponent
+&apos;	osheet = oDocument.currentController.activeSheet 
+&apos;osheet.protect(&quot;passe&quot;)
+&apos;vForm=Thiscomponent.CurrentController.ActiveSheet.DrawPage.Forms.getByName(&quot;Standard&quot;)
+
+vForm=THISCOMPONENT.DrawPage.Forms.getByName(&quot;Standard&quot;)
+	text_rep=vForm.getByName (&quot;txt_rep&quot;)	
+    img=vForm.GetByName(&quot;img_rep&quot;)
+	boite(1) = vForm.getByName(&quot;TextBox1&quot;)
+	boite(2) = vForm.getByName(&quot;TextBox2&quot;)
+	boite(3) = vForm.getByName(&quot;TextBox3&quot;)
+	boite(4) = vForm.getByName(&quot;TextBox4&quot;)
+	boite(5) = vForm.getByName(&quot;TextBox5&quot;)
+	boite(6) = vForm.getByName(&quot;TextBox6&quot;)
+	boite(7) = vForm.getByName(&quot;TextBox7&quot;)
+	boite(8) = vForm.getByName(&quot;TextBox8&quot;)
+	boite(9) = vForm.getByName(&quot;TextBox9&quot;)
+	boite(10) = vForm.getByName(&quot;TextBox10&quot;)
+essais = vForm.getByName (&quot;essais&quot;)
+&apos;accord = vForm.getByName (nom_1)
+	
+	  note = vForm.getByName (&quot;note&quot;)
+		
+		img=vForm.GetByName(&quot;img_rep&quot;)
+		lect=&quot;file:///C:&quot;
+		chemin = lect &amp; &quot;/dessins-exos/&quot;
+				content=&quot;contente.gif&quot;
+		    	vide=&quot;vide.gif&quot;
+		    	triste=&quot;triste.gif&quot;
+		    	normale=&quot;normale.gif&quot;	
+
+		for i= 1 to 10
+		reponse(i)= Trim(boite(i).text)
+		next i
+	souris
+	
+	for i = 1 to 10
+	if reponse(i) = boite(i).tag then
+	nbrep=nbrep+1
+	end if 
+	next i
+	if nbrep = 10 then 
+			text_rep.label = b_rep
+		note.label= mon_prenom &amp; &quot;,  tu as réussi. Bravo ! &quot;
+		Gosub reponse
+		exit sub
+		end if
+
+	nbessais = nbessais+1
+	
+For i = 1 to 10
+if	boite(i).tag &lt;&gt; reponse(i) then
+if nbessais = 1 then &apos;suivant le nombre d&apos;essais couleur différente
+boite(i).backgroundcolor = rgb(255,204,153)
+else if nbessais = 2 then
+boite(i).backgroundcolor =rgb(255,102,51)
+else if nbessais = 3 then
+boite(i).backgroundcolor =rgb(255,0,0) 
+end if
+end if
+end if 
+		boite(i).text= &quot;&quot;
+		nbmrep = nbmrep+1	
+		beep
+		end if 	
+		next i	
+&apos;For i = 1 to 10		
+&apos;if reponse (i) &lt;&gt; boite(i).tag  then
+&apos;	nbmrep=nbmrep+1	
+&apos;end if 
+&apos;next i
+if nbmrep &gt;=1 then	&apos;print &quot;Erreur&quot;
+			text_rep.label = m_rep	
+				Gosub reponse
+			&apos;nbessais = nbessais+1
+			essais.label = nbessais
+				if nbmrep=1 then
+				note.label= mon_prenom &amp; &quot;, tu as encore &quot; &amp; nbmrep &amp; &quot; erreur&quot;
+				else
+				note.label= mon_prenom &amp; &quot;, tu as encore &quot; &amp; nbmrep &amp; &quot; erreurs&quot;			
+			
+					end if					
+						end if 
+
+			if nbessais &gt; 4 then 
+			recommence
+			nbessais = 0
+			essais.label=&quot;&quot;
+			end if
+		
+		
+exit sub
+
+reponse:
+
+	if text_rep.label = m_rep then
+				img.imageURL= chemin &amp; triste
+				else
+				img.imageURL= chemin &amp; content
+				end if
+return
+				
+				
+				
+
+
+End Sub
+
+
+
+
+Function souris
+Dim i as long
+oDocument=ThisComponent
+vForm=THISCOMPONENT.DrawPage.Forms.getByName(&quot;Standard&quot;)
+&apos;Dim text_rep as object
+&apos;Dim img as object
+
+Dim non as long, oui as long
+&apos;Dim b_rep as string, m_rep as string
+Dim lect as string, chemin as string
+
+	text_rep=vForm.getByName (&quot;txt_rep&quot;)	
+	&apos;reponse=vForm.getByName(&quot;reponse&quot;)
+	&apos;verification=vForm.getByName (&quot;verif&quot;)
+	&apos;commence=vForm.getByName(&quot;commence&quot;)
+	img=vForm.GetByName(&quot;img_rep&quot;)
+		lect=&quot;file:///C:&quot;
+		chemin = lect &amp; &quot;/dessins-exos/&quot;
+		
+		    	content=&quot;contente.gif&quot;
+		    	vide=&quot;vide.gif&quot;
+		    	triste=&quot;triste.gif&quot;
+		    	normale=&quot;normale.gif&quot;	
+		    	
+		&apos;vo=&quot;vo.jpg&quot;		
+		randomize	
+				non = int((6*rnd)+1)			
+			
+			Select case non
+				case 1
+				m_rep=&quot;Bouh !&quot;
+				case 2
+				m_rep= &quot;Aïe !&quot;
+				case 3
+				m_rep= &quot;Snif !&quot;
+				case 4
+				m_rep= &quot;M&apos;enfin !&quot;
+				case 5
+				m_rep = &quot;Ouille !&quot;
+				case else
+				m_rep=&quot;Non !&quot;
+			end select						
+			
+			randomize
+			oui = int((4*rnd)+1)
+			Select case oui
+				case 1
+				b_rep=&quot;Très bien ! &quot;
+				case 2
+				b_rep= &quot;Youpi !&quot;
+				case 3
+				b_rep= &quot;Bien !&quot;
+				case else
+				b_rep=&quot;Bravo !&quot;
+				end select		
+						
+		end function
+		
+
+Sub recommence
+
+Dim i as long
+Dim note as object
+Dim essais as object
+oDocument=ThisComponent
+vForm=THISCOMPONENT.DrawPage.Forms.getByName(&quot;Standard&quot;)
+
+boite(1) = vForm.getByName(&quot;TextBox1&quot;)
+boite(2) = vForm.getByName(&quot;TextBox2&quot;)
+boite(3) = vForm.getByName(&quot;TextBox3&quot;)
+boite(4) = vForm.getByName(&quot;TextBox4&quot;)
+boite(5) = vForm.getByName(&quot;TextBox5&quot;)
+boite(6) = vForm.getByName(&quot;TextBox6&quot;)
+boite(7) = vForm.getByName(&quot;TextBox7&quot;)
+boite(7) = vForm.getByName(&quot;TextBox7&quot;)
+boite(8) = vForm.getByName(&quot;TextBox8&quot;)
+boite(9) = vForm.getByName(&quot;TextBox9&quot;)
+boite(10) = vForm.getByName(&quot;TextBox10&quot;)
+essais = vForm.getByName (&quot;essais&quot;)
+nbessais=0
+essais.label =&quot;&quot;
+
+	text_rep=vForm.getByName (&quot;txt_rep&quot;)
+	note = vForm.getByName (&quot;note&quot;)
+	note.label=&quot;&quot;
+for i = 1 to 10
+boite(i).text =&quot;&quot;
+boite(i).backgroundcolor=rgb (255,255,153)
+Next i
+&apos;image_b.BackGroundColor = rgb(255,255,255)
+&apos;image_m.BackGroundColor = rgb(255,255,255)
+
+	img=vForm.GetByName(&quot;img_rep&quot;)
+		lect=&quot;file:///C:&quot;
+		chemin = lect &amp; &quot;/dessins-exos/&quot;
+		normale=&quot;normale.gif&quot;	
+		img.imageURL=chemin &amp; normale
+		text_rep.label=&quot;&quot;
+   
+End sub
+
+Sub imprimer2
+	Dim aPrintOps(0) as new com.sun.star.beans.PropertyValue
+	Dim oviewcursor as object
+	Dim oDoc as object
+	oDoc = ThisComponent
+	oViewCursor = oDoc.CurrentController.getViewCursor()
+	aPrintOps(0).Name = &quot;Pages&quot;
+	aPrintOps(0).Value = trim(str(oViewCursor.getPage()))
+	oDoc.print(aPrintOps())
+End sub
+
+
+</script:module>
