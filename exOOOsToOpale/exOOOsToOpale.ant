@@ -6,7 +6,7 @@
     
     <!--
         1) Put the file to modify in the source folder
-        2) Execute "ant -buildfile exOOOsToOpale.ant -FileName=<myFile.odt>"
+        2) Execute "ant -buildfile exOOOsToOpale.ant -DFilename=<myFile.odt>"
         3) The converted output file is placed in the out directory (.quiz)
     -->
     
@@ -18,9 +18,9 @@
     <property name="LibPath"	value="lib\saxon9he.jar"/>
     <property name="XSLTpath"	value="XSLT/exOOOsToOpale_tat.xsl"/>
     <!-- Debug properties 
-        <property name="FileName" value="la_republique1.odt"/>-->
+        <property name="Filename" value="la_republique1.odt"/>-->
     <!-- Final InputPath (SourcePath + FileName) -->
-    <property name="InputPath" value="${SourcePath}/${FileName}"/>
+    <property name="InputPath" value="${SourcePath}/${Filename}"/>
     
     <target name="ConvertExOOOs">
         <echo message="Start exOOOsToOpale transformation"/>
