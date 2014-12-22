@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sc:item xmlns:sc="http://www.utc.fr/ics/scenari/v3/core"
+         xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0">
+   <op:cloze xmlns:sp="http://www.utc.fr/ics/scenari/v3/primitive"
+             xmlns:op="utc.fr:ics/opale3">
+      <op:exeM/>
+      <sc:gapText>
+         <op:clozeTxt>
+            <sc:para xml:space="preserve">
+                        C'est la partie de mur entre deux tours :  
+                  </sc:para>
+            <sc:para xml:space="preserve">
+                        Les projectiles lancés des archères rebondissent sur les .
+                  </sc:para>
+            <sc:para xml:space="preserve">
+                        Le  est la tour la plus haute et la plus grosse du château.
+                  </sc:para>
+            <sc:para xml:space="preserve">
+                        Le <sc:textLeaf role="gap"/>est composé d'une partie fixe (dormante) et <sc:textLeaf role="gap">pont-levis</sc:textLeaf>d'une partie mobile, le tablier qui vient se relever sur la porte.
+                  </sc:para>
+            <sc:para xml:space="preserve">
+                        Le chemin de ronde en haut des courtines est protégé par des <sc:textLeaf role="gap">merlons</sc:textLeaf> , partie en pierre derrière laquelle les soldats peuvent se protéger des tirs ennemis.
+                  </sc:para>
+            <sc:para xml:space="preserve">
+                        Les <sc:textLeaf role="gap">remparts</sc:textLeaf>sont constitués de courtines.
+                  </sc:para>
+            <sc:para xml:space="preserve">
+                        En haut des courtines, sur le chemin de ronde, les parties vides servant au tir sont appelées <sc:textLeaf role="gap">créneaux</sc:textLeaf>.
+                  </sc:para>
+            <sc:para xml:space="preserve">
+                        Les <sc:textLeaf role="gap">hourds</sc:textLeaf>sont des constructions en bois, formant une galerie qui couvre le chemin de ronde et les créneaux.
+                  </sc:para>
+            <sc:para xml:space="preserve">
+                        Les <sc:textLeaf role="gap">mâchicoulis</sc:textLeaf>sont des «trous» en haut des courtines qui permettent les projections diverses (eau bouillante, pierres, détritus ...) 
+                  </sc:para>
+            <sc:para xml:space="preserve">
+                        Certains châteaux comportent souvent deux tours placées côte à côte et qui encadrent l'entrée. On appelle cet ensemble : <sc:textLeaf role="gap">porterie</sc:textLeaf>.
+                  </sc:para>
+            <sc:para xml:space="preserve">
+                         <sc:textLeaf role="gap"/>
+                  </sc:para>
+         </op:clozeTxt>
+      </sc:gapText>
+   </op:cloze>
+</sc:item>
